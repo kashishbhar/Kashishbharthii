@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "build": "echo \"No build step is necessary for this project.\"",
+    "test": "echo \"No tests available in this repository.\""
+  }
+}
