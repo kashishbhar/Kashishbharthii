@@ -13,10 +13,6 @@ jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./hello-world
-
     steps:
     - uses: actions/checkout@v3
     
@@ -25,27 +21,32 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: './hello-world/package-lock.json'
+        cache-dependency-path: 'hello-world/package-lock.json'
     
     - name: Install dependencies
+      working-directory: hello-world
       run: npm ci
     
     - name: Run ESLint
+      working-directory: hello-world
       run: npm run lint
     
     - name: Run Prettier
+      working-directory: hello-world
       run: npm run format
     
     - name: Run Tests with Coverage
+      working-directory: hello-world
       run: npm run test:coverage
     
     - name: Upload coverage reports
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report
-        path: ./hello-world/coverage/
+        path: hello-world/coverage/
     
     - name: Build
+      working-directory: hello-world
       run: npm run build
 
     - name: Deploy to GitHub Pages
@@ -53,4 +54,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./hello-world/build 
+        publish_dir: hello-world/build 
