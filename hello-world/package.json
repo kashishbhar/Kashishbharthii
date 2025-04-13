@@ -22,7 +22,24 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "format": "prettier --check src/**/*.{ts,tsx}"
+    "format": "prettier --check src/**/*.{ts,tsx}",
+    "test:coverage": "react-scripts test --coverage --watchAll=false"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/reportWebVitals.ts",
+      "!src/react-app-env.d.ts"
+    ]
   },
   "eslintConfig": {
     "extends": [
