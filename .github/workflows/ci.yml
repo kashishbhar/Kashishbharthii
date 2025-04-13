@@ -16,6 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - name: List directory contents
+      run: ls -la
+    
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -23,9 +26,17 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'hello-world/package-lock.json'
     
+    - name: Navigate to project directory
+      run: |
+        cd hello-world
+        pwd
+        ls -la
+    
     - name: Install dependencies
       working-directory: hello-world
-      run: npm ci
+      run: |
+        npm install
+        npm ci
     
     - name: Run ESLint
       working-directory: hello-world
@@ -37,7 +48,7 @@ jobs:
     
     - name: Run Tests with Coverage
       working-directory: hello-world
-      run: npm run test:coverage
+      run: CI=true npm run test:coverage
     
     - name: Upload coverage reports
       uses: actions/upload-artifact@v3
